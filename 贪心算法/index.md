@@ -139,3 +139,45 @@ var eraseOverlapIntervals = function(intervals) {
   return length - process(prev, next)
 }
 ```
+
+##### 从一个数字中移除k位，使其剩余组成的数字最小
+
+```js
+/**
+ * 两位两位比较，如果prev > next, 删除prev，再将next接着以prev之前的数字比较，_prev大就删除，直到_prev小或者_prev到顶
+ * 如果prev <= next，在进行下一位比较
+ * 如果匹配完还有剩余k移除尾部
+ */
+var removeKdigits = function(num, k) {
+  num = num.split('')
+  const length = num.length
+  let prev = 0, next = 1
+
+  if (length === 0) return result
+
+  while (next < num.length && k > 0) {
+    let movedNum = 0
+    if (num[prev] > num[next]) {
+      k--
+      num.splice(prev, 1)
+      next--
+      prev--
+      // 向前回溯
+      while (k !== 0 && prev >= 0 && num[prev] > num[next]) {
+        num.splice(prev, 1)
+        k--
+        prev--
+        next--
+      }
+    }
+    prev++
+    next++
+  }
+
+  if (k > 0) {
+    num.splice(num.length - k, k)
+  }
+
+  return num.join('').replace(/^0+/, '') || '0'
+}
+```
