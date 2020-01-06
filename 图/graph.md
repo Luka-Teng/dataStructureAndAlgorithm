@@ -54,7 +54,8 @@ const print = (route, t) => {
 /**
  * 广度遍历搜索
  * E = edge  v = vector
- * 时间复杂度O(E), 就是不断从边扩散 
+ * 时间复杂度O(E), 就是不断从边扩散
+ * 可以找到次数最少的路径
  */
 function bfs (graph, s, t) {
   let stacks = []
